@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	th:href="@{/bootstrap-5.1.3-dist/css/bootstrap.min.css}">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script th:src="@{/jquery-3.6.0-dist/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/bootstrap-5.1.3-dist/js/bootstrap.min.js}"></script>
+
+<title>PRIMEIRO CRUD</title>
+
+</head>
+<style>
+div{
+	margin: 10px;
+}
+</style>
+<body>
+	<div class="container">
+		<div class="row" style="padding-bottom: 30px;">
+			<div class="col">
+			<h2>Lista de Peças</h2>
+	<div class="container">
+		<div class="row" style="padding-bottom: 30px;">
+			<div class="col">
+				<a th:href="@{/novaPeca}" class="btn btn-primary">Nova Peça</a>
+				<a th:href="@{/novoEstilo}" class="btn btn-primary">Novo Estilo</a>
+				
+			</div>
+			
+			
+			<div class="row">
+				<div class="col-sm-5">
+					<form th:action="@{/buscar}" method="post">
+						<div class="input-group">
+							<input type="text" class="form-control" name="tipo" /> <input
+								class="btn btn-primary" type="submit" value="Buscar" /> 
+							<a th:href="@{/}" class="btn btn-danger" type="submit">Cancelar</a>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			
+			<div class="row">
+			<div class="alert alert-danger alert-dismissible fade show"
+					th:if="${mensagemErro}">
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					<span th:text="${mensagemErro}"></span>
+			</div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Tamanho</th>
+						<th>Cor</th>
+						<th>Marca</th>
+						<th>Tipo</th>
+						<th>Estilo</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${listaPecas.empty}">
+						<td colspan="6">Não existem pecas.</td>
+					</tr>
+					<tr th:each="peca : ${listaPecas}">
+						<td><span th:text="${peca.tamanho}"></span></td>
+						<td><span th:text="${peca.cor}"></span></td>
+						<td><span th:text="${peca.marca}"></span></td>
+						<td><span th:text="${peca.tipo}"></span></td>
+						<td th:each="peca : ${listaPecaso}">
+						<span th:text="${peca.marca}"></span>
+						</td>
+							
+						
+						
+						<td>
+						&nbsp;
+						<a class="fa-regular fa-pen-to-square icon-dark"
+							th:href="@{/editar/{id}(id=${peca.id})}"></a>						
+						</td>
+																	
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</div>		
+	</div>
+	
+</body>
+</html>
